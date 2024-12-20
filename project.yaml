@@ -6,15 +6,14 @@ expectations:
 
 actions:
   generate_dataset_full:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition_core.py --output output/full_dataset.csv.gz
+    run: ehrql:v1 generate-dataset analysis/dataset_definition_core.py --output output/full_dataset_test.csv.gz
     outputs:
       highly_sensitive:
-        full_dataset: output/full_dataset.csv.gz
+        full_dataset: output/full_dataset_test.csv.gz
   
   generate_charts:
     run: python:v2 python analysis/report.py
     needs: [generate_dataset_full]
     outputs:
       moderately_sensitive:
-        chart1: output/adhd_events_per_year_by_sex.png
-        chart2: output/methylphenidate_prescriptions_per_year_by_sex.png
+        table1: output/results_saved.csv

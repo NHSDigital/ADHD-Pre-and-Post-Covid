@@ -22,7 +22,7 @@ was_registered = practice_registrations.for_patient_on(
 is_female_or_male = patients.sex.is_in(["female", "male"])
 
 was_adult = (patients.age_on(start_date) >= 18) & (
-    patients.age_on(start_date) <= 100
+    patients.age_on(start_date) <= 120
 )
 
 was_alive = (
@@ -65,24 +65,6 @@ for year in years:
     # Set the attribute on the dataset
     setattr(dataset, attribute_name, num_adhd_events_year)
 
-for year in years:
-    start_date = f"{year}-01-01"
-    end_date = f"{year}-12-31"
-    
-    # Construct the attribute name dynamically for each year
-    attribute_name = f"num_methylphenidate_prescription_{year}"
-    
-    # Calculate the number of methyphenidate events for the given year
-    num_methylphenidate_prescription_year = medications.where(
-    medications.dmd_code.is_in(methylphenidate_codelist)
-    & medications.date.is_on_or_between(
-        start_date, end_date)
-    ).count_for_patient()
-    
-    # Set the attribute on the dataset
-    setattr(dataset, attribute_name, num_methylphenidate_prescription_year)
-
 
 dataset.sex = patients.sex
-
-
+dataset.dob = patients.date_of_birth
