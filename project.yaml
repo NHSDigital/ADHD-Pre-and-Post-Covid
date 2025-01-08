@@ -5,15 +5,18 @@ expectations:
   population_size: 5000
 
 actions:
-  generate_dataset_full:
-    run: ehrql:v1 generate-dataset analysis/dataset_definition_core.py --output output/full_dataset_test.csv.gz
+  generate_dataset:
+    run: > 
+      ehrql:v1 generate-dataset analysis/dataset_definition_core.py 
+      --output output/adhd_dataset.csv.gz
     outputs:
       highly_sensitive:
-        full_dataset: output/full_dataset_test.csv.gz
+        adhd_dataset: output/adhd_dataset.csv.gz
   
-  generate_charts:
-    run: python:v2 python analysis/report.py
-    needs: [generate_dataset_full]
+  generate_adhd_prevalence:
+    run: > 
+      ehrql:v1 generate-measures analysis/measures_definition.py 
+      --output output/adhd_prevalence.csv
     outputs:
       moderately_sensitive:
-        table1: output/results_saved.csv
+        measure: output/adhd_prevalence.csv
