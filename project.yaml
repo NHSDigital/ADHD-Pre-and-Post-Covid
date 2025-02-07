@@ -7,11 +7,18 @@ expectations:
 actions:
   generate_dataset:
     run: > 
-      ehrql:v1 generate-dataset analysis/dataset_definition_core.py 
+      ehrql:v1 generate-dataset analysis/dataset_definition_dx_to_med_time.py
       --output output/adhd_dataset.csv.gz
     outputs:
       highly_sensitive:
         adhd_dataset: output/adhd_dataset.csv.gz
+
+  generate_output_table:
+    run: python:v2 python analysis/calculate_time_diff_from_dx_to_med.py
+    needs: [generate_dataset]
+    outputs:
+      moderately_sensitive:
+        table1: output/adhd_dia_med_gap_weeks.csv
   
   generate_adhd_prevalence:
     run: > 

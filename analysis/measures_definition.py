@@ -6,7 +6,8 @@ from ehrql.tables.tpp import (
     medications,
 )
 
-from codelists import adhd_codelist, adhdrem_codelist, methylphenidate_codelist
+from codelists import adhd_codelist, adhdrem_codelist
+
 
 # Helper function for finding the last matching event
 def last_matching_event(events, codelist, where=True):
@@ -26,6 +27,7 @@ def last_matching_event(events, codelist, where=True):
         .sort_by(events.date)
         .last_for_patient()
     )
+
 
 measures = create_measures()
 measures.configure_dummy_data(population_size=10000)
@@ -50,7 +52,7 @@ age_band = case(
     when(age.is_null()).then("Missing"),
 )
 
-#In terms of dates -  Latest <= RPED
+# In terms of dates -  Latest <= RPED
 selected_events = clinical_events.where(
     clinical_events.date.is_on_or_before(INTERVAL.end_date)
 )
@@ -65,7 +67,9 @@ has_adhd_rule_1 = has_adhd_cod_date.is_not_null()
 # Select patients with:
 # (a) no remission code or
 # (b) a new ADHD diagnosis after the most recent remission code
-has_adhd_rule_2 = (has_adhdrem_cod_date.is_null()) | (has_adhd_cod_date > has_adhdrem_cod_date)
+has_adhd_rule_2 = (has_adhdrem_cod_date.is_null()) | (
+    has_adhd_cod_date > has_adhdrem_cod_date
+)
 
 has_adhd_rule_1_and_2 = has_adhd_rule_1 & has_adhd_rule_2
 
