@@ -8,26 +8,7 @@ from ehrql.tables.tpp import (
 
 from codelists import adhd_codelist, adhdrem_codelist
 
-
-# Helper function for finding the last matching event
-def last_matching_event(events, codelist, where=True):
-    """Select the last matching SNOMED CT event from specified codelist
-
-    Args:
-        events (e.g., clinical_events or ): Many rows per patient event frame to select last matching event from codelist from
-        codelist (codelist): Clinical codelist, must be using snomedct codes
-        where (bool, optional): _description_. Defaults to True.
-
-    Returns:
-        patient frame: One row per patient frame, with the last matching event from codelist
-    """
-    return (
-        events.where(where)
-        .where(events.snomedct_code.is_in(codelist))
-        .sort_by(events.date)
-        .last_for_patient()
-    )
-
+from variables_library import last_matching_event
 
 measures = create_measures()
 measures.configure_dummy_data(population_size=10000)
@@ -80,7 +61,7 @@ measures.define_measure(
         has_registration
         & patients.sex.is_in(["male", "female"])
         & (age <= 120)
-        & patients.is_alive_on(INTERVAL.start_date)
+        & patients.is_alive_on(INTERVAL.end_date)
     ),
     group_by={"sex": sex, "age_band": age_band},
     intervals=years(3).starting_on("2021-04-01"),

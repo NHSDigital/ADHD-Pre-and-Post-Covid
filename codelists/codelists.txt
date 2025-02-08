@@ -1,6 +1,8 @@
 nhsd-primary-care-domain-refsets/adhd_cod/20200812
 nhsd-primary-care-domain-refsets/adhdrem_cod/20200812/
 nhsd-primary-care-domain-refsets/ld_cod/20241205
+user/kquan/adhd-codelist-nhs-england/3ca0408f
+user/kquan/adhd-codelist-nhs-england-dmd/2390cd5a
 
 opensafely/ethnicity/2020-04-27
 opensafely/methylphenidate-dmd/1e051e13

@@ -19,3 +19,8 @@ methylphenidate_codelist = codelist_from_csv(
     "codelists/opensafely-methylphenidate-dmd.csv",
     column="code",
 )
+
+adhd_medication_codelist = codelist_from_csv(
+    "codelists/user-kquan-adhd-codelist-nhs-england-dmd.csv",
+    column="code",
+)

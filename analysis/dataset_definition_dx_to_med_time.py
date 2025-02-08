@@ -10,8 +10,7 @@ from variables_library import first_matching_event
 
 from codelists import (
     adhd_codelist,
-    adhdrem_codelist,
-    methylphenidate_codelist,
+    adhd_medication_codelist,
 )
 
 dataset = create_dataset()
@@ -49,7 +48,7 @@ dataset.count_adhd_resolved = clinical_events.where(
 
 dataset.first_mph_med_date = (
     medications.where(True)
-    .where(medications.dmd_code.is_in(methylphenidate_codelist))
+    .where(medications.dmd_code.is_in(adhd_medication_codelist))
     .where(medications.date.is_on_or_after(dataset.first_adhd_diagnosis_date))
     .sort_by(medications.date)
     .first_for_patient()
