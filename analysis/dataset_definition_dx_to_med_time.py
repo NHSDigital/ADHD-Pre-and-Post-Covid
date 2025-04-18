@@ -14,11 +14,11 @@ from codelists import (
 )
 
 dataset = create_dataset()
-dataset.configure_dummy_data(population_size=5)
+dataset.configure_dummy_data(population_size=100000)
 
 # Date range
 start_date = "2016-04-01"
-end_date = "2017-03-31"
+end_date = "2024-03-31"
 
 # Population variables
 has_registration = practice_registrations.spanning(

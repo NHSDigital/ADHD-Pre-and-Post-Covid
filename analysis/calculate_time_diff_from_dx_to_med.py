@@ -12,11 +12,11 @@ adhd_data = pd.read_csv("output/adhd_dataset.csv.gz")
 week_bin = [0, 1, 2, 4, 8, 12, 21, 52, 104]
 
 # Placing into a histogram
-output = adhd_data["times_between_dia_med_weeks"].value_counts(bins=week_bin)
+adhd_data['year_of_diagnosis'] = pd.DatetimeIndex(adhd_data['first_adhd_diagnosis_date']).year
 
-# Need to label the outputs
-output = output.rename_axis("weeks_between_dx_and_med_date")
-output = output.rename("counts")
+# Need to collect the counts
+output = adhd_data.groupby(['year_of_diagnosis', pd.cut(adhd_data.times_between_dia_med_weeks, week_bin)])
+output = output.size().unstack()
 
 # Small number supppression
 rounding_unit = 10
