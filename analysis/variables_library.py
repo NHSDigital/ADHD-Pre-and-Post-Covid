@@ -19,6 +19,24 @@ from codelists import (
     adhd_medication_codelist,
 )
 
+def first_medication_event(medications, medication_codelist, where=True):
+    """Select the first matching dmd_code from specified codelist
+
+    Args:
+        ehrql.tables.tpp.medications 
+        codelist (codelist): Clinical codelist, must be using dmd_code 
+        where (bool, optional): _description_. Defaults to True.
+
+    Returns:
+        patient frame: One row per patient frame, with the first matching event from medication_codelist
+    """
+    return (
+            medications.where(True)
+            .where(medications.dmd_code.is_in(medication_codelist))
+            .sort_by(medications.date)
+            .first_for_patient()
+    )
+
 def first_matching_event(events, codelist, where=True):
     """Select the first matching SNOMED CT event from specified codelist
 

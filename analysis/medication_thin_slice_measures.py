@@ -10,6 +10,7 @@ from codelists import (
     adhd_codelist, 
     adhdrem_codelist,
     adhd_medication_codelist,
+    
 )
 
 from variables_library import (
@@ -24,7 +25,7 @@ The following scripts looks at the measure of selected medication used
 '''
 
 measures = create_measures()
-measures.configure_dummy_data(population_size=1000)
+measures.configure_dummy_data(population_size=10000)
 
 # Population variables
 has_registration = practice_registrations.spanning(
@@ -61,21 +62,6 @@ rule_has_adhd = has_adhd_cod_date.is_not_null()
 # Select patients with meds
 rule_has_meds = has_med_date.is_not_null()
 
-rule_has_med_but_no_adhd =(
-    rule_has_meds &
-    has_adhd_cod_date.is_null()
-    )
-
-rule_has_med_with_adhd = (
-    rule_has_meds &
-    has_adhd_cod_date.is_not_null()
-)
-
-rule_no_med_with_adhd = (
-    has_med_date.is_null() &
-    has_adhd_cod_date.is_not_null()
-)
-
 #This looks at the incidence of ADHD medication in the entire population
 measures.define_measure(
     name= f"adhd_medication_general",
@@ -90,48 +76,3 @@ measures.define_measure(
     intervals=years(9).starting_on("2016-04-01"),
 )
 
-#This looks at the incidence of medication in the entire population that do not have a ADHD diagonsis
-measures.define_measure(
-    name= f"no_adhd_medication_general",
-    numerator= rule_has_med_but_no_adhd,
-    denominator=(
-        has_registration
-        & patients.sex.is_in(["male", "female"])
-        & (age <= 120)
-        & patients.is_alive_on(INTERVAL.end_date)
-    ),
-    group_by={"sex": sex, "age_band": age_band},
-    intervals=years(9).starting_on("2016-04-01"),
-)
-
-#This looks at the incidence of medication in the population for ADHD diagonsis
-measures.define_measure(
-    name= f"adhd_medication_diagonsis",
-    numerator= rule_has_med_with_adhd,
-    denominator=(
-        has_registration
-        & rule_has_adhd
-        & patients.sex.is_in(["male", "female"])
-        & (age <= 120)
-        & patients.is_alive_on(INTERVAL.end_date)
-        & has_adhd_cod_date.is_not_null()
-    ),
-    group_by={"sex": sex, "age_band": age_band},
-    intervals=years(9).starting_on("2016-04-01"),
-)
-
-#This looks at the incidence of population of ADHD diagonsis
-measures.define_measure(
-    name= f"adhd_no_medication_diagonsis",
-    numerator= rule_no_med_with_adhd,
-    denominator=(
-        has_registration
-        & rule_has_adhd
-        & patients.sex.is_in(["male", "female"])
-        & (age <= 120)
-        & patients.is_alive_on(INTERVAL.end_date)
-        & has_adhd_cod_date.is_not_null()
-    ),
-    group_by={"sex": sex, "age_band": age_band},
-    intervals=years(9).starting_on("2016-04-01"),
-)
