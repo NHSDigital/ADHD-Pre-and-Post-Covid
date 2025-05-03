@@ -19,6 +19,20 @@ from codelists import (
     adhd_medication_codelist,
 )
 
+from datetime import (
+    datetime
+)
+
+def add_datestamp():
+    """Getting a time stamp link
+
+    Returns:
+        datetime_string : string of date string
+    """
+    datetime_string = datetime.today().strftime('%d_%m_%Y_%H_%M')
+
+    return datetime_string
+
 def first_medication_event(medications, medication_codelist, where=True):
     """Select the first matching dmd_code from specified codelist
 
@@ -75,7 +89,7 @@ def last_matching_event(events, codelist, where=True):
     )
 
 def event_ADHD():
-    """Creates a ADHD diagonsis under the business rules
+    """Creates a ADHD diagonsis under the business rules for digonsis
 
     Returns:
         patient frame: One row per patient frame, with the first matching event from codelist
@@ -103,3 +117,19 @@ def event_ADHD():
     has_adhd_rule_1_and_2 = has_adhd_rule_1 & has_adhd_rule_2
 
     return has_adhd_rule_1_and_2
+
+
+def first_event_ADHD():
+    """Creates a ADHD diagonsis for the first point of diagonsis
+
+    Returns:
+        _type_: One row per patient frame, with the first matching event from codelist
+    """
+
+    selected_events = clinical_events.where(
+    clinical_events.date.is_on_or_before(INTERVAL.end_date)
+    )
+
+    has_adhdrem_cod_date = first_matching_event(selected_events, adhdrem_codelist).date
+
+    return has_adhdrem_cod_date
