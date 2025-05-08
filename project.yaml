@@ -52,6 +52,21 @@ actions:
       moderately_sensitive:
         measure: output/Table_3_with_ADHD_that_are_prescribed_ADHD_medication.csv
 
+  Patient_table_5_dia_to_med:
+    run: > 
+      ehrql:v1 generate-dataset analysis/Patient_table_5_dia_to_med.py
+      --output output/Patient_table_5_dia_to_med.csv.gz
+    outputs:
+      highly_sensitive:
+        measure: output/Patient_table_5_dia_to_med.csv.gz
+
+  Table_5_time_from_diagnosis_to_treatment:
+    run: python:v2 python analysis/Table_5_time_from_diagnosis_to_treatment.py
+    needs: [Patient_table_5_dia_to_med]
+    outputs:
+      moderately_sensitive:
+        table1: output/Table_5_time_from_diagnosis_to_treatment.csv
+
 
 
 
