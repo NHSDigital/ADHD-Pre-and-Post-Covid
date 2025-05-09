@@ -51,6 +51,14 @@ actions:
     outputs:
       moderately_sensitive:
         measure: output/Table_3_with_ADHD_that_are_prescribed_ADHD_medication.csv
+  
+  Table_3_without_ADHD_that_are_prescribed_ADHD_medication:
+    run: > 
+      ehrql:v1 generate-measures analysis/Table_3_without_ADHD_that_are_prescribed_ADHD_medication.py
+      --output output/Table_3_without_ADHD_that_are_prescribed_ADHD_medication.csv 
+    outputs:
+      moderately_sensitive:
+        measure: output/Table_3_without_ADHD_that_are_prescribed_ADHD_medication.csv
 
   Patient_table_5_dia_to_med:
     run: > 
