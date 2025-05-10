@@ -6,33 +6,16 @@ from ehrql.tables.tpp import (
     medications,
 )
 
-from codelists import (
-    adhd_codelist, 
-    adhdrem_codelist,
-    adhd_medication_codelist,
-    
-)
+from codelists import adhd_codelist, adhdrem_codelist
 
 from variables_library import (
-    first_matching_event, 
-    last_matching_event, 
-    event_ADHD,
-    first_medication_event,
+    last_matching_event,
     first_event_ADHD,
     add_datestamp
 )
 
-'''
-The following scripts looks at the measure of not using medicarion
-
-This is a combination of two groups
-1) Patients with NO medication AND diagonsis
-
-We may be leaving patients with ADHD and medication for something else 
-'''
-
 measures = create_measures()
-measures.configure_dummy_data(population_size=1000)
+measures.configure_dummy_data(population_size=10000)
 
 # Population variables
 has_registration = practice_registrations.spanning(
@@ -54,20 +37,30 @@ age_band = case(
     when(age.is_null()).then("Missing"),
 )
 
-selected_events = medications.where(
-    medications.date.is_on_or_before(INTERVAL.end_date)
-)
-
-has_med_date = first_medication_event(selected_events, adhd_medication_codelist).date
+# In terms of dates -  Latest <= RPED
 has_adhd_cod_date = first_event_ADHD(INTERVAL.end_date)
 
-#Computing group 1 - No medication and diagnosis
-has_med_and_no_dia = has_med_date.is_not_null() & ~(has_adhd_cod_date.is_not_null())
+selected_events = clinical_events.where(
+    clinical_events.date.is_on_or_before(INTERVAL.end_date)
+)
 
-#This looks at the incidence of ADHD medication in the entire population
+has_adhdrem_cod_date = last_matching_event(selected_events, adhdrem_codelist).date
+
+# Select patients with a diagnosis of ADHD
+has_adhd_rule_1 = has_adhd_cod_date.is_not_null()
+
+# Select patients with:
+# (a) no remission code or
+# (b) a new ADHD diagnosis after the most recent remission code
+has_adhd_rule_2 = (has_adhdrem_cod_date.is_null()) | (
+    has_adhd_cod_date > has_adhdrem_cod_date
+)
+
+has_adhd_rule_1_and_2 = has_adhd_rule_1 & has_adhd_rule_2
+
 measures.define_measure(
-    name= f"Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication" + add_datestamp(),
-    numerator= has_med_and_no_dia,
+    name=f"Table_2_Prevalence_of_ADHD_Diagnosis" + add_datestamp(),
+    numerator=has_adhd_rule_1_and_2,
     denominator=(
         has_registration
         & patients.sex.is_in(["male", "female"])
@@ -75,6 +68,5 @@ measures.define_measure(
         & patients.is_alive_on(INTERVAL.end_date)
     ),
     group_by={"sex": sex, "age_band": age_band},
-    intervals=years(9).starting_on("2016-04-01"),
+    intervals=years(3).starting_on("2021-04-01"),
 )
-

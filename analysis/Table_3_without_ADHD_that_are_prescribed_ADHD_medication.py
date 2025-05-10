@@ -58,7 +58,7 @@ selected_events = medications.where(
 )
 
 has_med_date = first_medication_event(selected_events, adhd_medication_codelist).date
-has_adhd_cod_date = first_event_ADHD()
+has_adhd_cod_date = first_event_ADHD(INTERVAL.end_date)
 
 #Computing group 1 - medication and NO diagnosis
 has_med_and_no_dia = has_med_date.is_not_null() & ~(has_adhd_cod_date.is_not_null())
@@ -71,7 +71,7 @@ has_med_only = has_med_and_no_dia | has_meds_before_dia
 
 #This looks at the incidence of ADHD medication in the entire population
 measures.define_measure(
-    name= f"ADHD_med_only_" + add_datestamp(),
+    name= f"Table_3_without_ADHD_that_are_prescribed_ADHD_medication" + add_datestamp(),
     numerator= has_med_only,
     denominator=(
         has_registration

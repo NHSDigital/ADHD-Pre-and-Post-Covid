@@ -23,6 +23,8 @@ from datetime import (
     datetime
 )
 
+import os
+
 def add_datestamp():
     """Getting a time stamp link
 
@@ -32,6 +34,10 @@ def add_datestamp():
     datetime_string = datetime.today().strftime('%d_%m_%Y_%H_%M')
 
     return datetime_string
+
+def print_file_name():
+
+    return os.path.basename(__file__)
 
 def first_medication_event(medications, medication_codelist, where=True):
     """Select the first matching dmd_code from specified codelist
@@ -119,7 +125,7 @@ def event_ADHD():
     return has_adhd_rule_1_and_2
 
 
-def first_event_ADHD():
+def first_event_ADHD(date_threshold = INTERVAL.end_date):
     """Creates a ADHD diagonsis for the first point of diagonsis
 
     Returns:
@@ -127,7 +133,7 @@ def first_event_ADHD():
     """
 
     selected_events = clinical_events.where(
-    clinical_events.date.is_on_or_before(INTERVAL.end_date)
+    clinical_events.date.is_on_or_before(date_threshold)
     )
 
     has_adhdrem_cod_date = first_matching_event(selected_events, adhdrem_codelist).date
