@@ -58,7 +58,12 @@ selected_events = medications.where(
 )
 
 has_med_date = first_medication_event(selected_events, adhd_medication_codelist).date
-has_adhd_cod_date = first_event_ADHD(INTERVAL.end_date)
+
+selected_conditions = clinical_events.where(
+    clinical_events.date.is_on_or_before(INTERVAL.end_date)
+)
+
+has_adhd_cod_date = last_matching_event(selected_conditions, adhd_codelist).date
 
 #Computing group 1 - medication and NO diagnosis
 has_med_and_no_dia = has_med_date.is_not_null() & ~(has_adhd_cod_date.is_not_null())

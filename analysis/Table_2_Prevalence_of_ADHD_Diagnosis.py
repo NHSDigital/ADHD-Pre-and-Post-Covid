@@ -15,7 +15,7 @@ from variables_library import (
 )
 
 measures = create_measures()
-measures.configure_dummy_data(population_size=10000)
+measures.configure_dummy_data(population_size=10)
 
 # Population variables
 has_registration = practice_registrations.spanning(
@@ -59,7 +59,7 @@ has_adhd_rule_2 = (has_adhdrem_cod_date.is_null()) | (
 has_adhd_rule_1_and_2 = has_adhd_rule_1 & has_adhd_rule_2
 
 measures.define_measure(
-    name=f"Table_2_Prevalence_of_ADHD_Diagnosis" + add_datestamp(),
+    name=f"Table_2_Prevalence_of_ADHD_Diagnosis_extactly_same",
     numerator=has_adhd_rule_1_and_2,
     denominator=(
         has_registration

@@ -6,28 +6,12 @@ from ehrql.tables.tpp import (
     medications,
 )
 
-from codelists import (
-    adhd_codelist, 
-    adhdrem_codelist,
-    adhd_medication_codelist,
-    
-)
+from codelists import adhd_codelist, adhdrem_codelist
 
-from variables_library import (
-    first_matching_event, 
-    last_matching_event, 
-    event_ADHD,
-    first_medication_event,
-    first_event_ADHD,
-    add_datestamp
-)
-
-'''
-The following scripts looks at the measure of selected medication used
-'''
+from variables_library import last_matching_event
 
 measures = create_measures()
-measures.configure_dummy_data(population_size=1000)
+measures.configure_dummy_data(population_size=10)
 
 # Population variables
 has_registration = practice_registrations.spanning(
@@ -49,26 +33,24 @@ age_band = case(
     when(age.is_null()).then("Missing"),
 )
 
-
-selected_events = medications.where(
-    medications.date.is_on_or_before(INTERVAL.end_date)
-)
-
-has_med_date = first_medication_event(selected_events, adhd_medication_codelist).date
-
-selected_conditions = clinical_events.where(
+# In terms of dates -  Latest <= RPED
+selected_events = clinical_events.where(
     clinical_events.date.is_on_or_before(INTERVAL.end_date)
 )
 
-has_adhd_cod_date = last_matching_event(selected_conditions, adhd_codelist).date
+has_adhd_cod_date = last_matching_event(selected_events, adhd_codelist).date
 
-has_adhd_and_meds = has_adhd_cod_date < has_med_date
-has_adhd_and_meds = has_adhd_and_meds.is_not_null()
+has_adhdrem_cod_date = last_matching_event(selected_events, adhdrem_codelist).date
 
-#This looks at the incidence of ADHD medication in the entire population
+#Rule being remission date must come after the condeition date 
+has_adhdrem_rule = (has_adhdrem_cod_date.is_null()) | (
+    has_adhd_cod_date < has_adhdrem_cod_date
+)
+
+
 measures.define_measure(
-    name= f"Table_3_with_ADHD_that_are_prescribed_ADHD_medication" + add_datestamp(),
-    numerator= has_adhd_and_meds,
+    name=f"Table_2_Prevalence_of_ADHD_Remission",
+    numerator=has_adhdrem_rule,
     denominator=(
         has_registration
         & patients.sex.is_in(["male", "female"])
@@ -76,6 +58,5 @@ measures.define_measure(
         & patients.is_alive_on(INTERVAL.end_date)
     ),
     group_by={"sex": sex, "age_band": age_band},
-    intervals=years(9).starting_on("2016-04-01"),
+    intervals=years(3).starting_on("2021-04-01"),
 )
-
