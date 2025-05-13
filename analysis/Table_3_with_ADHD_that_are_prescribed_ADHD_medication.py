@@ -60,7 +60,7 @@ selected_conditions = clinical_events.where(
     clinical_events.date.is_on_or_before(INTERVAL.end_date)
 )
 
-has_adhd_cod_date = last_matching_event(selected_conditions, adhd_codelist).date
+has_adhd_cod_date = first_matching_event(selected_conditions, adhd_codelist).date
 
 has_adhd_and_meds = has_adhd_cod_date < has_med_date
 has_adhd_and_meds = has_adhd_and_meds.is_not_null()

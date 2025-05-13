@@ -69,12 +69,13 @@ has_adhd_cod_date = first_matching_event(selected_conditions, adhd_codelist).dat
 #Computing group 1 - No medication and diagnosis
 has_med_and_no_dia = has_med_date.is_not_null() & ~(has_adhd_cod_date.is_not_null())
 
-#This looks at the incidence of ADHD medication in the entire population
+#This looks at the incidence of ADHD medication in the ADHD population
 measures.define_measure(
-    name= f"Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication" + add_datestamp(),
+    name= f"Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group" + add_datestamp(),
     numerator= has_med_and_no_dia,
     denominator=(
         has_registration
+        & has_adhd_cod_date.is_not_null()
         & patients.sex.is_in(["male", "female"])
         & (age <= 120)
         & patients.is_alive_on(INTERVAL.end_date)

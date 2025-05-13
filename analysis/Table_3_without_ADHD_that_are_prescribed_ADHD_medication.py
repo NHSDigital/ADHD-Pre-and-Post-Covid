@@ -27,7 +27,6 @@ The following scripts looks at the measure of selected medication used
 
 This is a combination of two groups
 1) Patients with medication AND no diagonsis
-2) Paitnets with medication BEFORE diagonsis
 '''
 
 measures = create_measures()
@@ -63,10 +62,10 @@ selected_conditions = clinical_events.where(
     clinical_events.date.is_on_or_before(INTERVAL.end_date)
 )
 
-has_adhd_cod_date = last_matching_event(selected_conditions, adhd_codelist).date
+has_adhd_cod_date = first_matching_event(selected_conditions, adhd_codelist).date
 
 #Computing group 1 - medication and NO diagnosis
-has_med_and_no_dia = has_med_date.is_not_null() & ~(has_adhd_cod_date.is_not_null())
+has_med_and_no_dia = has_med_date.is_not_null() & (has_adhd_cod_date.is_null())
 
 #Computing group 2 - medication before diagnosis
 has_meds_before_dia = has_adhd_cod_date > has_med_date

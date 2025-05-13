@@ -8,7 +8,7 @@ from ehrql.tables.tpp import (
 
 from codelists import adhd_codelist, adhdrem_codelist
 
-from variables_library import last_matching_event
+from variables_library import last_matching_event, add_datestamp
 
 measures = create_measures()
 measures.configure_dummy_data(population_size=10)
@@ -38,18 +38,13 @@ selected_events = clinical_events.where(
     clinical_events.date.is_on_or_before(INTERVAL.end_date)
 )
 
-has_adhd_cod_date = last_matching_event(selected_events, adhd_codelist).date
-
 has_adhdrem_cod_date = last_matching_event(selected_events, adhdrem_codelist).date
 
 #Rule being remission date must come after the condeition date 
-has_adhdrem_rule = (has_adhdrem_cod_date.is_null()) | (
-    has_adhd_cod_date < has_adhdrem_cod_date
-)
-
+has_adhdrem_rule = has_adhdrem_cod_date.is_not_null()
 
 measures.define_measure(
-    name=f"Table_2_Prevalence_of_ADHD_Remission",
+    name=f"Table_2_Prevalence_of_ADHD_Remission" + add_datestamp(),
     numerator=has_adhdrem_rule,
     denominator=(
         has_registration
