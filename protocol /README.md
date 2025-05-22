@@ -361,7 +361,7 @@ pre covid region respectively.
 
 | Year |  $${\color{Green}2016}$$ | $${\color{Green}2017}$$  | $${\color{Green}2018}$$  | $${\color{Green}2019}$$   |2020 | $${\color{Blue}2017}$$  | $${\color{Blue}2021}$$ | $${\color{Blue}2022}$$ | $${\color{Blue}2023}$$  | $${\color{Blue}2024}$$ |
 | --- | ---   |---  |--- |---  |--- |---  | ---| --- |--- |---  | 
-| MPrevalence of patients with ADHD non pharmacological treatments without prescription |    |  | |  | |  | |  | |  | 
+| Prevalence of patients with ADHD non pharmacological treatments without prescription |    |  | |  | |  | |  | |  | 
 | Prevalence of patients with ADHD non pharmacological treatments with prescription   |    |  | |  | |  | |  | |  |  
 
 Table 6: The prevalence of patients with ADHD with non-pharmacological
