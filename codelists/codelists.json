@@ -30,6 +30,12 @@
       "downloaded_at": "2025-02-07 15:45:08.230830Z",
       "sha": "fd07b0fa59af025d26ad053529789797df9c26ee"
     },
+    "user-Adam-adhd-dmd.csv": {
+      "id": "user/Adam/adhd-dmd/59d39fe1",
+      "url": "https://www.opencodelists.org/codelist/user/Adam/adhd-dmd/59d39fe1/",
+      "downloaded_at": "2025-06-06 14:04:00.225142Z",
+      "sha": "bf6ea7c0cd89e927dd28e88f4f3b2ea2564674c0"
+    },
     "opensafely-ethnicity.csv": {
       "id": "opensafely/ethnicity/2020-04-27",
       "url": "https://www.opencodelists.org/codelist/opensafely/ethnicity/2020-04-27/",

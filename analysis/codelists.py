@@ -21,6 +21,6 @@ methylphenidate_codelist = codelist_from_csv(
 )
 
 adhd_medication_codelist = codelist_from_csv(
-    "codelists/user-kquan-adhd-codelist-nhs-england-dmd.csv",
+    "codelists/user-Adam-adhd-dmd.csv",
     column="code",
 )
