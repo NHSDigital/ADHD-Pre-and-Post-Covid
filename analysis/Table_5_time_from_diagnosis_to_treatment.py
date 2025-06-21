@@ -13,11 +13,22 @@ os.makedirs(output_dir, exist_ok=True)
 # Load the data
 adhd_medication_date_data = pd.read_csv("output/Patient_table_5_dia_to_med.csv.gz")
 
-#Genrating the final table
-output = adhd_medication_date_data.groupby(['year_of_medication','sex']).times_between_dia_med_weeks.agg(['mean', 'median','size'])
+# Convert medication date column to datetime if not already
+adhd_medication_date_data['first_mph_med_date'] = pd.to_datetime(adhd_medication_date_data['first_mph_med_date'])
 
-# #Filter the muilple index
-output = output[output.index.isin(list(range(2016,2025)), level=0)]
+# Filter out rows where 'first_mph_med_date' is before 2016-04-01
+adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] >= '2016-04-01']
+
+# Create a 'year_of_medication' column that groups April-March as a year
+adhd_medication_date_data['year_of_medication'] = adhd_medication_date_data['first_mph_med_date'].apply(
+    lambda x: x.year if x.month >= 4 else x.year - 1
+)
+
+#Making the year of medication a clearer
+adhd_medication_date_data['year_of_medication'] = adhd_medication_date_data['year_of_medication'].astype(str) + '-' + (adhd_medication_date_data['year_of_medication'] + 1).astype(str)
+
+# Generating the final table
+output = adhd_medication_date_data.groupby(['age_band', 'year_of_medication', 'sex'], as_index=False).times_between_dia_med_weeks.agg(['mean', 'median', 'size'])
 
 # #Adding a small number suprresion
 rounding_unit = 10

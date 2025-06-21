@@ -1,4 +1,4 @@
-from ehrql import create_dataset, case, create_measures, when, years
+from ehrql import create_dataset, case, create_measures, when, years, months
 from ehrql.tables.tpp import (
     patients,
     practice_registrations,
@@ -6,7 +6,10 @@ from ehrql.tables.tpp import (
     medications,
 )
 
-from variables_library import first_matching_event
+from variables_library import (
+    first_matching_event,
+    last_matching_event
+)
 
 from codelists import (
     adhd_codelist,
@@ -23,12 +26,12 @@ end_date_point = "2025-03-31"
 
 # Population variables
 has_registration = practice_registrations.where(
-        practice_registrations.start_date.is_on_or_after(start_date_point)
+        practice_registrations.start_date.is_on_or_after(start_date_point - months(7))
     ).exists_for_patient()
 
 dataset.sex = patients.sex
-dataset.date_of_birth = patients.date_of_birth
 
+dataset.date_of_birth = patients.date_of_birth
 
 # Filtering with the codelists
 has_adhd_event = clinical_events.where(
@@ -40,24 +43,20 @@ dataset.first_adhd_diagnosis_date = first_matching_event(
     clinical_events, adhd_codelist
 ).date
 
-dataset.first_mph_med_date = (
+dataset.last_mph_med_date = (
     medications.where(True)
     .where(medications.dmd_code.is_in(adhd_medication_codelist))
     .where(medications.date.is_on_or_after(dataset.first_adhd_diagnosis_date))
     .sort_by(medications.date)
-    .first_for_patient()
+    .last_for_patient()
     .date
 )
 
-# Compute the date gap
-dataset.times_between_dia_med_weeks = (
-    dataset.first_mph_med_date - dataset.first_adhd_diagnosis_date
-).weeks
-
-dataset.year_of_medication = (dataset.first_mph_med_date).year
+dataset.year_of_medication = (dataset.last_mph_med_date).year
+dataset.month_of_medication = (dataset.last_mph_med_date).month
 
 #Computing the age at the point of medication
-dataset.age = patients.age_on(dataset.first_mph_med_date)
+dataset.age = patients.age_on(dataset.last_mph_med_date)
 
 dataset.age_band = case(
     when((dataset.age >= 0) & (dataset.age <= 9)).then("0 to 9"),
@@ -78,6 +77,6 @@ dataset.define_population(
     & dataset.sex.is_in(["male", "female"])
     & (dataset.age <= 120)
     & dataset.first_adhd_diagnosis_date.is_not_null()
-    & dataset.first_mph_med_date.is_not_null()
-    & (dataset.first_mph_med_date >= dataset.first_adhd_diagnosis_date)
+    & dataset.last_mph_med_date.is_not_null()
+    & (dataset.last_mph_med_date >= dataset.first_adhd_diagnosis_date)
 )
