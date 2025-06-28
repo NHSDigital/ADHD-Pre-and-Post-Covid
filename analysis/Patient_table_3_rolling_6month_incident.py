@@ -18,7 +18,7 @@ from codelists import (
 )
 
 dataset = create_dataset()
-dataset.configure_dummy_data(population_size=1000)
+dataset.configure_dummy_data(population_size=10000)
 
 # Date range
 start_date_point = "2016-04-01"
