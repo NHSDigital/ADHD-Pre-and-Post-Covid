@@ -41,7 +41,14 @@ output = (
             .groupby(['last_mph_med_date_month_date','age_band','sex'],as_index=False).size()
 )
 
-output = rolling_6_month_sum(output, rolling_col_name = rolling_col_name)
+output = (
+    rolling_6_month_sum(
+        output, 
+        date_column = 'last_mph_med_date_month_date',
+        count_column = 'size',
+        column_group = ['sex'],
+        rolling_col_name = 'rolling_6_month_sum',)
+)
 
 # Filter thethe data to only include dates from 2016-04-01 onwards
 output = output[output['last_mph_med_date_month_date'] >= threshold_date]
