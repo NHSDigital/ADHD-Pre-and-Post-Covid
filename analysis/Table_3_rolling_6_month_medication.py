@@ -14,6 +14,9 @@ from table_wrangle_functions import (
 # The key parameters
 rolling_col_name = 'rolling_6_month_sum'
 threshold_date = '2016-04-01'
+date_column = 'last_mph_med_date_month_date'
+count_column = 'size'
+column_group = ['sex']
 
 # Ensure the 'outputs' directory exists
 output_dir = "output"
@@ -28,30 +31,32 @@ adhd_medication_data['last_mph_med_date'] = (
 )
 
 #This is a crude way of removing the day
-adhd_medication_data['last_mph_med_date_month_date'] = (
+adhd_medication_data[date_column] = (
     adhd_medication_data['last_mph_med_date'].apply(lambda x: x.strftime('%Y-%m'))
 )
 
-adhd_medication_data['last_mph_med_date_month_date'] = (
-    pd.to_datetime(adhd_medication_data['last_mph_med_date_month_date'], format='%Y-%m')
+adhd_medication_data[date_column] = (
+    pd.to_datetime(adhd_medication_data[date_column], format='%Y-%m')
 )
 
+grouping_cols = [date_column] + column_group
 output = (
     adhd_medication_data
-            .groupby(['last_mph_med_date_month_date','age_band','sex'],as_index=False).size()
+            .groupby(grouping_cols, as_index=False).size()
 )
 
 output = (
     rolling_6_month_sum(
         output, 
-        date_column = 'last_mph_med_date_month_date',
-        count_column = 'size',
-        column_group = ['sex'],
-        rolling_col_name = 'rolling_6_month_sum',)
+        date_column,
+        count_column,
+        column_group,
+        rolling_col_name)
 )
 
-# Filter thethe data to only include dates from 2016-04-01 onwards
-output = output[output['last_mph_med_date_month_date'] >= threshold_date]
+# Filter 
+threshold_date_dt = pd.to_datetime(threshold_date, format='%Y-%m-%d')
+output = output[output[date_column] >= threshold_date_dt]
 
 # Adding a small number suppression
 rounding_unit = 10
