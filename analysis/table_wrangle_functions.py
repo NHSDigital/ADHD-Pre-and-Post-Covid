@@ -41,6 +41,8 @@ def monthly_interval_list(start_date, end_date):
 
 def rolling_6_month_sum(
     dataframe,
+    start_date,
+    end_date,
     date_column = 'last_mph_med_date_month_date',
     count_column = 'size',
     column_group = ['age_band','sex'],
@@ -48,21 +50,24 @@ def rolling_6_month_sum(
     ):
 
     """
-    Calculates a 6-month rolling sum for a specified count column in a DataFrame, grouped by specified columns and date.
+    Calculates a 6-month rolling sum for a specified count column in a DataFrame, grouped by specified columns and over a given date range.
     Parameters:
-        dataframe (pd.DataFrame): The input DataFrame containing the data.
+        dataframe (pd.DataFrame): The input DataFrame containing the data to aggregate.
+        start_date (str or pd.Timestamp): The start date for the rolling calculation interval.
+        end_date (str or pd.Timestamp): The end date for the rolling calculation interval.
         date_column (str, optional): The name of the column containing date values. Defaults to 'last_mph_med_date_month_date'.
-        count_column (str, optional): The name of the column containing the counts to sum. Defaults to 'size'.
+        count_column (str, optional): The name of the column to sum over the rolling window. Defaults to 'size'.
         column_group (list of str, optional): List of column names to group by. Defaults to ['age_band', 'sex'].
-        rolling_col_name (str, optional): The name of the output column for the rolling sum. Defaults to 'rolling'.
+        rolling_col_name (str, optional): The name of the output column containing the rolling sum. Defaults to 'rolling'.
     Returns:
-        pd.DataFrame: A DataFrame with the original group columns, date column, count column, and a new column containing the 6-month rolling sum for each group.
+        pd.DataFrame: A DataFrame containing the rolling sums for each group and date in the specified interval, with missing dates filled as zero.
     Notes:
-        - Missing dates in the time series are filled with zeros before calculating the rolling sum.
+        - Assumes the existence of a function `monthly_interval_list` that generates a list of monthly dates between start_date and end_date.
+        - The function fills missing dates with zeros before calculating the rolling sum.
         - The rolling sum uses a window of 6 months with a minimum of 1 period.
     """
     #Need to get inputs
-    date_interval = [min(dataframe[date_column]), max(dataframe[date_column])]
+    date_interval = [start_date, end_date]
     unqiue_combination = dataframe[column_group].drop_duplicates(subset=column_group)
 
     list_of_dates = monthly_interval_list(date_interval[0], date_interval[1])

@@ -25,18 +25,12 @@ start_date_point = "2016-04-01"
 end_date_point = "2025-03-31"
 
 # Population variables
-has_registration = practice_registrations.where(
-        practice_registrations.start_date.is_on_or_after(start_date_point - months(7))
-    ).exists_for_patient()
+has_registration = practice_registrations.exists_for_patient()
+dataset.has_registration = has_registration
 
 dataset.sex = patients.sex
 
 dataset.date_of_birth = patients.date_of_birth
-
-# Filtering with the codelists
-has_adhd_event = clinical_events.where(
-    clinical_events.snomedct_code.is_in(adhd_codelist)
-).exists_for_patient()
 
 # Picking the first date for dia and first date for med
 dataset.first_adhd_diagnosis_date = first_matching_event(
@@ -63,17 +57,13 @@ dataset.age_band = case(
     when((dataset.age >= 10) & (dataset.age <= 17)).then("10 to 17"),
     when((dataset.age >= 18) & (dataset.age <= 24)).then("18 to 24"),
     when((dataset.age >= 25) & (dataset.age <= 34)).then("25 to 34"),
-    when((dataset.age >= 35) & (dataset.age <= 44)).then("35 to 44"),
-    when((dataset.age >= 45) & (dataset.age <= 54)).then("45 to 54"),
-    when((dataset.age >= 55) & (dataset.age <= 64)).then("55 to 64"),
-    when((dataset.age >= 65) & (dataset.age <= 74)).then("65 to 74"),
-    when(dataset.age >= 75).then("75 and over"),
+    when(dataset.age >= 35).then("35 and over"),
     when(dataset.age.is_null()).then("Missing"),
 )
 
 # Computing the population records
 dataset.define_population(
-    has_registration
+    dataset.has_registration
     & dataset.sex.is_in(["male", "female"])
     & (dataset.age <= 120)
     & dataset.first_adhd_diagnosis_date.is_not_null()

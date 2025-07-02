@@ -16,7 +16,9 @@ rolling_col_name = 'rolling_6_month_sum'
 threshold_date = '2016-04-01'
 date_column = 'last_mph_med_date_month_date'
 count_column = 'size'
-column_group = ['sex']
+column_group = ['sex','age_band']
+start_date = pd.to_datetime("2016-04-01", format='%Y-%m-%d') - relativedelta(months=7)
+end_date =pd.to_datetime("2025-05-01", format='%Y-%m-%d')
 
 # Ensure the 'outputs' directory exists
 output_dir = "output"
@@ -47,7 +49,9 @@ output = (
 
 output = (
     rolling_6_month_sum(
-        output, 
+        output,
+        start_date,
+        end_date, 
         date_column,
         count_column,
         column_group,
