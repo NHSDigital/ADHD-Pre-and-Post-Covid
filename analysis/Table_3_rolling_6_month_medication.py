@@ -62,6 +62,9 @@ output = (
 threshold_date_dt = pd.to_datetime(threshold_date, format='%Y-%m-%d')
 output = output[output[date_column] >= threshold_date_dt]
 
+# Drop the size count
+output = output.drop(columns=[count_column])
+
 # Adding a small number suppression
 rounding_unit = 10
 output['rolling_6_month_sum'] = np.ceil(output['rolling_6_month_sum'] / rounding_unit)

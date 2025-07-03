@@ -22,18 +22,10 @@ start_date_point = "2016-04-01"
 end_date_point = "2025-03-31"
 
 # Population variables
-has_registration = practice_registrations.where(
-        practice_registrations.start_date.is_on_or_after(start_date_point)
-    ).exists_for_patient()
+has_registration = practice_registrations.exists_for_patient()
 
 dataset.sex = patients.sex
 dataset.date_of_birth = patients.date_of_birth
-
-
-# Filtering with the codelists
-has_adhd_event = clinical_events.where(
-    clinical_events.snomedct_code.is_in(adhd_codelist)
-).exists_for_patient()
 
 # Picking the first date for dia and first date for med
 dataset.first_adhd_diagnosis_date = first_matching_event(
