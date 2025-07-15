@@ -22,7 +22,7 @@ dataset.configure_dummy_data(population_size=10000)
 
 # Date range
 start_date_point = "2016-04-01"
-end_date_point = "2025-03-31"
+end_date_point = "2025-04-01"
 
 # Population variables
 has_registration = practice_registrations.exists_for_patient()

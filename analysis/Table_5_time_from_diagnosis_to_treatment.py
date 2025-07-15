@@ -6,6 +6,14 @@ from table_wrangle_functions import (
     add_datestamp
 )
 
+#The parameters
+start_date_string = "2016-04-01"
+start_date = pd.to_datetime(start_date_string, format='%Y-%m-%d')
+
+end_date_point = "2025-04-01"
+end_date = pd.to_datetime(end_date_point, format='%Y-%m-%d')
+
+
 # Ensure the 'outputs' directory exists
 output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
@@ -14,10 +22,12 @@ os.makedirs(output_dir, exist_ok=True)
 adhd_medication_date_data = pd.read_csv("output/Patient_table_5_dia_to_med.csv.gz")
 
 # Convert medication date column to datetime if not already
-adhd_medication_date_data['first_mph_med_date'] = pd.to_datetime(adhd_medication_date_data['first_mph_med_date'])
+adhd_medication_date_data['first_mph_med_date'] = pd.to_datetime(adhd_medication_date_data['first_mph_med_date'], format='%Y-%m-%d')
 
-# Filter out rows where 'first_mph_med_date' is before 2016-04-01
-adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] >= '2016-04-01']
+# Filter out rows with the defined the first and end point
+adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] >= start_date]
+adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] <= end_date]
+
 
 # Create a 'year_of_medication' column that groups April-March as a year
 adhd_medication_date_data['year_of_medication'] = adhd_medication_date_data['first_mph_med_date'].apply(

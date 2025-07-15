@@ -5,36 +5,36 @@ expectations:
   population_size: 5000
 
 actions:
-  generate_dataset:
-    run: > 
-      ehrql:v1 generate-dataset analysis/dataset_definition_dx_to_med_time.py
-      --output output/adhd_dataset.csv.gz
-    outputs:
-      highly_sensitive:
-        adhd_dataset: output/adhd_dataset.csv.gz
+#   generate_dataset:
+#     run: > 
+#       ehrql:v1 generate-dataset analysis/dataset_definition_dx_to_med_time.py
+#       --output output/adhd_dataset.csv.gz
+#     outputs:
+#       highly_sensitive:
+#         adhd_dataset: output/adhd_dataset.csv.gz
 
-  generate_output_table:
-    run: python:v2 python analysis/calculate_time_diff_from_dx_to_med.py
-    needs: [generate_dataset]
-    outputs:
-      moderately_sensitive:
-        table1: output/adhd_dia_med_gap_weeks.csv
+#   generate_output_table:
+#     run: python:v2 python analysis/calculate_time_diff_from_dx_to_med.py
+#     needs: [generate_dataset]
+#     outputs:
+#       moderately_sensitive:
+#         table1: output/adhd_dia_med_gap_weeks.csv
   
-  generate_adhd_prevalence:
-    run: > 
-      ehrql:v1 generate-measures analysis/measures_definition.py 
-      --output output/adhd_prevalence.csv
-    outputs:
-      moderately_sensitive:
-        measure: output/adhd_prevalence.csv
+#   generate_adhd_prevalence:
+#     run: > 
+#       ehrql:v1 generate-measures analysis/measures_definition.py 
+#       --output output/adhd_prevalence.csv
+#     outputs:
+#       moderately_sensitive:
+#         measure: output/adhd_prevalence.csv
 
-  thin_slice_medication: 
-    run: > 
-      ehrql:v1 generate-measures analysis/medication_thin_slice_measures.py
-      --output output/thin_slice_medication_measures.csv 
-    outputs:
-      moderately_sensitive:
-        measure: output/thin_slice_medication_measures.csv
+#   thin_slice_medication: 
+#     run: > 
+#       ehrql:v1 generate-measures analysis/medication_thin_slice_measures.py
+#       --output output/thin_slice_medication_measures.csv 
+#     outputs:
+#       moderately_sensitive:
+#         measure: output/thin_slice_medication_measures.csv
 
   Table_2_Prevalence_of_ADHD_Diagnosis:
     run: > 
@@ -44,13 +44,13 @@ actions:
       moderately_sensitive:
         measure: output/Table_2_Prevalence_of_ADHD_Diagnosis.csv
 
-  Table_2_Prevalence_of_ADHD_Remission:
-    run: > 
-      ehrql:v1 generate-measures analysis/Table_2_Prevalence_of_ADHD_Remission.py 
-      --output output/Table_2_Prevalence_of_ADHD_Remission.csv
-    outputs:
-      moderately_sensitive:
-        measure: output/Table_2_Prevalence_of_ADHD_Remission.csv
+  # Table_2_Prevalence_of_ADHD_Remission:
+  #   run: > 
+  #     ehrql:v1 generate-measures analysis/Table_2_Prevalence_of_ADHD_Remission.py 
+  #     --output output/Table_2_Prevalence_of_ADHD_Remission.csv
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure: output/Table_2_Prevalence_of_ADHD_Remission.csv
 
   Patient_table_3_rolling_6month_incident:
     run: > 
@@ -91,21 +91,21 @@ actions:
       moderately_sensitive:
         measure: output/Table_3_are_prescribed_ADHD_medication_in_ADHD_group.csv
 
-  Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication:
-    run: > 
-      ehrql:v1 generate-measures analysis/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.py
-      --output output/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.csv 
-    outputs:
-      moderately_sensitive:
-        measure: output/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.csv
+  # Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication:
+  #   run: > 
+  #     ehrql:v1 generate-measures analysis/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.py
+  #     --output output/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.csv 
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure: output/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.csv
 
-  Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group:
-    run: > 
-      ehrql:v1 generate-measures analysis/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.py
-      --output output/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.csv 
-    outputs:
-      moderately_sensitive:
-        measure: output/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.csv
+  # Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group:
+  #   run: > 
+  #     ehrql:v1 generate-measures analysis/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.py
+  #     --output output/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.csv 
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure: output/Table_3_NOT_prescribed_ADHD_medication_in_ADHD_group.csv
 
   Patient_table_5_dia_to_med:
     run: > 
