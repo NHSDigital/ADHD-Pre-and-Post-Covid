@@ -26,7 +26,7 @@ adhd_medication_date_data['first_mph_med_date'] = pd.to_datetime(adhd_medication
 
 # Filter out rows with the defined the first and end point
 adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] >= start_date]
-adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] <= end_date]
+adhd_medication_date_data = adhd_medication_date_data[adhd_medication_date_data['first_mph_med_date'] < end_date] # The end date is the start of the next tax year
 
 
 # Create a 'year_of_medication' column that groups April-March as a year
