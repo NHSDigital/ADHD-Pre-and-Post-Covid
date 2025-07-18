@@ -122,6 +122,12 @@ actions:
       moderately_sensitive:
         table1: output/Table_5_time_from_diagnosis_to_treatment.csv
 
+  Context_txt:
+    run: python:v2 analysis/Context_doc.py
+    outputs:
+      moderately_sensitive:
+        table1: output/context.txt
+
 
 
 

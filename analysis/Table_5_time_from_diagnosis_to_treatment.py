@@ -45,6 +45,9 @@ rounding_unit = 10
 output['size'] = np.ceil(output['size'] / rounding_unit)
 output['size'] = output['size'] * rounding_unit
 
+#Rounding the weeks
+output[['mean', 'median']] = output[['mean', 'median']].round(0).astype(int)
+
 # #Adding a set time stamp
 output['timestamp'] = add_datestamp()
 
