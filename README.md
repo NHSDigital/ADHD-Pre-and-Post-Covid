@@ -3,13 +3,17 @@
 > [!WARNING]  
 > This repository is in active development and contents of this repository MUST NOT be considered an accurate or valid representation of the study or its purpose. This repository may reflect an incomplete or incorrect analysis with no further ongoing work. The content has ONLY been made public to support the OpenSAFELY [open science and transparency principles](https://www.opensafely.org/about/#contributing-to-best-practice-around-open-science) and to support the sharing of re-usable code for other subsequent users. No clinical, policy or safety conclusions must be drawn from the contents of this repository.
 
-This repo is codebase for the approved [OpenSAFELY project #181: Examining changes in ADHD diagnosis and pathways in primary care pre and post COVID pandemic](https://www.opensafely.org/approved-projects/#project-181)
+This repo is codebase for the approved [OpenSAFELY project #181: Examining changes in ADHD diagnosis and pathways in primary care pre and post COVID pandemic](https://www.opensafely.org/approved-projects/#project-181). Work is carried out by the [NHS England Data Science Team][ds-site]
 
 Detail description of the project can be found on our [protocol]( https://github.com/opensafely/ADHD-Pre-and-Post-Covid/tree/main/protocol%20)
 
 Each query is logged in [OpenSAFELY Jobs](https://jobs.opensafely.org/examining-changes-in-adhd-diagnosis-and-pathways-in-primary-care-pre-and-post-covid-pandemic/adhd-pre-and-post-covid/) 
 
 This repo aims to be at [Baseline level RAP](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#baseline-rap-getting-the-fundamentals-right)
+
+## Contact
+
+Email: [datascience@nhs.net][ds-email] 
 
 ## Prerequisites
 
@@ -36,8 +40,8 @@ Unless stated otherwise, the codebase is released under the MIT License.
 Any HTML or Markdown documentation is [© Crown copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/) and available under the terms of the [Open Government 3.0 licence](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
 
 
-## Contact
-This repository is partly maintained by the [NHS England Data Science Team][ds-email]. To contact us - [email][ds-email]. 
+## NHS England Data Science Team
+This repository is partly maintained by the [NHS England Data Science Team][ds-email].
 
 See our other work on the [NHS England Data Science website][ds-site].
 
