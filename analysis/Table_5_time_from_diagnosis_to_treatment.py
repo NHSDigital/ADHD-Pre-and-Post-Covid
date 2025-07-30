@@ -37,20 +37,35 @@ adhd_medication_date_data['year_of_medication'] = adhd_medication_date_data['fir
 #Making the year of medication a clearer
 adhd_medication_date_data['year_of_medication'] = adhd_medication_date_data['year_of_medication'].astype(str) + '-' + (adhd_medication_date_data['year_of_medication'] + 1).astype(str)
 
-# Generating the final table
-output = adhd_medication_date_data.groupby(['age_band', 'year_of_medication', 'sex'], as_index=False).times_between_dia_med_weeks.agg(['mean', 'median', 'size'])
+#Need to check the simpsion paradox
 
-# #Adding a small number suprresion
-rounding_unit = 10
-output['size'] = np.ceil(output['size'] / rounding_unit)
-output['size'] = output['size'] * rounding_unit
+list_of_combination = [
+    ['age_band', 'year_of_medication', 'sex'],
+    ['age_band', 'year_of_medication'],
+    ['year_of_medication', 'sex'],
+    ['year_of_medication'],
+    ]
 
-#Rounding the weeks
-output[['mean', 'median']] = output[['mean', 'median']].round(0).astype(int)
+output_to_save = pd.DataFrame()
+
+for each_cobination in list_of_combination:
+    # Generating the final table
+    output = adhd_medication_date_data.groupby(each_cobination, as_index=False).times_between_dia_med_weeks.agg(['mean', 'median', 'size'])
+
+    # #Adding a small number suprresion
+    rounding_unit = 10
+    output['size'] = np.ceil(output['size'] / rounding_unit)
+    output['size'] = output['size'] * rounding_unit
+
+    #Rounding the weeks
+    output[['mean', 'median']] = output[['mean', 'median']].round(0).astype(int)
+
+    output_to_save = pd.concat([output_to_save,output], axis=0, ignore_index=True)
+    output_to_save = output_to_save.fillna('ALL')
 
 # #Adding a set time stamp
-output['timestamp'] = add_datestamp()
+output_to_save['timestamp'] = add_datestamp()
 
 # Saving the table
-output.to_csv("output/Table_5_time_from_diagnosis_to_treatment.csv")
+output_to_save.to_csv("output/Table_5_time_from_diagnosis_to_treatment.csv")
 

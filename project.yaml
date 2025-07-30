@@ -91,6 +91,14 @@ actions:
       moderately_sensitive:
         measure: output/Table_3_are_prescribed_ADHD_medication_in_ADHD_group.csv
 
+  Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months:
+    run: > 
+      ehrql:v1 generate-measures analysis/Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months.py
+      --output output/Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months.csv 
+    outputs:
+      moderately_sensitive:
+        measure: output/Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months.csv
+
   # Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication:
   #   run: > 
   #     ehrql:v1 generate-measures analysis/Table_3_with_ADHD_that_are_NOT_prescribed_ADHD_medication.py
