@@ -11,7 +11,8 @@ In this section, all outputs are generated using the [measures framework](https:
 * Table_3_with_ADHD_that_are_prescribed_ADHD_medication - The file displays the prevalence including counts of patients with an ADHD diagnosis and taking ADHD medication for each year in the general population
 * Table_3_without_ADHD_that_are_prescribed_ADHD_medication - The file displays the prevalence including counts of patients with an ADHD medication and do not have an ADHD diagnosed code in the general population
 * Table_3_are_prescribed_ADHD_medication_in_ADHD_group - The file displays the prevalence including counts of patients that have taken ADHD medication in the population of patients of with ADHD diagnosis code.
-* Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months - The monthly percentage of patients with ADHD that have taken an ADHD medication in the last 6 months. 
+* Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months - The monthly percentage of patients with ADHD that have taken an ADHD medication in the last 6 months. Disclosure Control:
+    * The age category is grouped at a larger age range in 35 and over to suppress small numbers.
 
 ## User defined outputs
 In this section, all outputs are curated by the author

@@ -47,16 +47,12 @@ age_band = case(
     when((age >= 10) & (age <= 17)).then("10 to 17"),
     when((age >= 18) & (age <= 24)).then("18 to 24"),
     when((age >= 25) & (age <= 34)).then("25 to 34"),
-    when((age >= 35) & (age <= 44)).then("35 to 44"),
-    when((age >= 45) & (age <= 54)).then("45 to 54"),
-    when((age >= 55) & (age <= 64)).then("55 to 64"),
-    when((age >= 65) & (age <= 74)).then("65 to 74"),
-    when(age >= 75).then("75 and over"),
-    when(age.is_null()).then("Missing"),
+    when(age >= 35).then("35 and over"),
+    when( age.is_null()).then("Missing"),
 )
 
 selected_events = medications.where(
-    medications.date.is_on_or_after(INTERVAL.start_date - months(6))
+    medications.date.is_on_or_between((INTERVAL.start_date - months(6)), INTERVAL.end_date)
 )
 
 has_med_date = last_medication_event(selected_events, adhd_medication_codelist).date
@@ -74,7 +70,11 @@ has_adhd_cond = has_adhd_cod_date.is_not_null()
 #This looks at the incidence of ADHD medication in the population of ADHD
 measures.define_measure(
     name= f"Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months" + add_datestamp(),
-    numerator= has_registration & has_adhd_meds,
+    numerator= (
+        has_registration 
+        & has_adhd_meds 
+        & has_adhd_cond
+    ),
     denominator=(
         has_registration
         & has_adhd_cond
