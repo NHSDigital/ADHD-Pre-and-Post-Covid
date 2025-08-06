@@ -26,7 +26,7 @@ from variables_library import (
 '''
 The following scripts looks at percentage of patients on medication in the last months
 
-Numerator – The number of patients that have taken their last ADHD medication from the last 6 months and have an ADHD diagnosis (from anytime)
+Numerator – The number of patients that have taken their last ADHD medication in the last 6 months and have an ADHD diagnosis (from anytime)
 
 Denominator – The number of patients that have an had an ADHD at any time.
 
@@ -74,6 +74,9 @@ measures.define_measure(
         has_registration 
         & has_adhd_meds 
         & has_adhd_cond
+        & patients.sex.is_in(["male", "female"])
+        & (age <= 120)
+        & patients.is_alive_on(INTERVAL.end_date)
     ),
     denominator=(
         has_registration

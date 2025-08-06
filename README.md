@@ -28,6 +28,9 @@ The [metadata of clinical codes]( https://www.opencodelists.org/) used in this s
 * [Attention Deficit Hyperactivity Disorder in remission codes](https://www.opencodelists.org/codelist/nhsd-primary-care-domain-refsets/adhdrem_cod/20200812/)
 * [Attention Deficit Hyperactivity Disorder Medication](https://www.opencodelists.org/codelist/user/Adam/adhd-dmd/59d39fe1/#full-list)
 
+## Supplementary Materials
+We calculate the ADHD prevalence in EMIS using open source data, the methodology and data can be found [in the docs folder](https://github.com/opensafely/ADHD-Pre-and-Post-Covid/tree/main/docs/emis_calculation)
+
 ## Compliance
 
 The project is performed under the [OpenSAFELY COVID-19 Service]( https://digital.nhs.uk/about-nhs-digital/corporate-information-and-documents/directions-and-data-provision-notices/data-provision-notices-dpns/opensafely-covid-19-service-data-provision-notice) thus may be subject to a [legal hold](https://transform.england.nhs.uk/documents/147/PRN00309_ii_Example_document_preservation_notice_210323_Open_access_Word_file_MASTER.odt) from the [Transformation Directorate]( https://transform.england.nhs.uk/information-governance/guidance/preparing-for-the-uk-covid-19-inquiry/)

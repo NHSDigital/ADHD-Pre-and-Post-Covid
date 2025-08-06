@@ -1,5 +1,7 @@
 config = {
     'saved_path':'emis_measure',
+    'readme_path':'docs/emis_calculation/README.md',
+    'anchor_in_readme': "[place_table_here]: #",
     'url_2324':"https://files.digital.nhs.uk/FC/187D35/health_care_ld_sicbl_2023-24.csv",
     'url_2223':"https://files.digital.nhs.uk/43/BD15AC/health_care_ld_sicbl_2022-23.csv",
     'url_1722':"https://files.digital.nhs.uk/BC/016738/health_care_ld_sicbl_data_1718_2122.zip",
