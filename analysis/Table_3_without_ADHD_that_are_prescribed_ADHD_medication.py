@@ -25,8 +25,7 @@ from variables_library import (
 '''
 The following scripts looks at the measure of selected medication used
 
-This is a combination of two groups
-1) Patients with medication AND no diagonsis
+This is patients that has a ADDH medication but not a ADHD diagonsis
 '''
 
 measures = create_measures()

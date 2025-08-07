@@ -9,7 +9,8 @@ In this section, all outputs are generated using the [measures framework](https:
 
 * Table_2_Prevalence_of_ADHD_Diagnosis – The file displays the prevalence including counts of ADHD diagnosis for each year in the general population
 * Table_3_with_ADHD_that_are_prescribed_ADHD_medication - The file displays the prevalence including counts of patients with an ADHD diagnosis and taking ADHD medication for each year in the general population
-* Table_3_without_ADHD_that_are_prescribed_ADHD_medication - The file displays the prevalence including counts of patients with an ADHD medication and do not have an ADHD diagnosed code in the general population
+* Table_3_without_ADHD_that_are_prescribed_ADHD_medication - The file displays the prevalence including counts of patients with an ADHD medication and do not have an ADHD diagnosed code in the general population. Changes:
+    * We have applied a stricter condition of patients who have never had an ADHD diagnosis code. Thus, excluding the group of patients that have taken ADHD medication before their diagnosis.
 * Table_3_are_prescribed_ADHD_medication_in_ADHD_group - The file displays the prevalence including counts of patients that have taken ADHD medication in the population of patients of with ADHD diagnosis code.
 * Table_3_percentage_of_people_with_ADHD_then_have_had_meds_in_the_last_6_months - The monthly percentage of patients with ADHD that have taken an ADHD medication in the last 6 months. Disclosure Control:
     * The age category is grouped at a larger age range in 35 and over to suppress small numbers.
@@ -25,3 +26,9 @@ In this section, all outputs are curated by the author
     * The age category is grouped at a larger age range in 35 and over to suppress small numbers.
     * The minimum size is floored at 20 to avoid possible secondary exposure.
     * The mean and medium of weeks are rounded.
+
+## Changes made
+* Table_3_without_ADHD_that_are_prescribed_ADHD_medication - Changes:
+    * We have applied a stricter condition of patients who have never had an ADHD diagnosis code. Thus, excluding the group of patients that have taken ADHD medication before their diagnosis.
+* Table_5_time_from_diagnosis_to_treatment – Changes:
+    * We included aggregates of age band and sex with ALL label – this is ensured we checked Simpson's paradox, a phenomenon where a trend appears in several groups of data but disappears or reverses when the groups are combined.
