@@ -1,6 +1,6 @@
-# Calculating ADHD prevalence rate from EMIS (ADD THE OTHER PROVIDER) records using open-source data from NHS England
+# Calculating ADHD prevalence rate from EMIS and Cegedim records using open-source data from NHS England
 
-The following code generates the prevalence rate from [NHS England’s Health and Care of People with Learning Disabilities publication series]( https://digital.nhs.uk/data-and-information/publications/statistical/health-and-care-of-people-with-learning-disabilities) The data is displayed below.
+The following code generates the prevalence rate from [NHS England’s Health and Care of People with Learning Disabilities publication series]( https://digital.nhs.uk/data-and-information/publications/statistical/health-and-care-of-people-with-learning-disabilities) The data comes from EMIS and Cegedim.
 
 ## Method
 
@@ -11,7 +11,7 @@ The raw data is downloaded through the following links:
 * [For 2022 to 2023](https://files.digital.nhs.uk/43/BD15AC/health_care_ld_sicbl_2022-23.csv)
 * [For 2023 to 2024](https://files.digital.nhs.uk/FC/187D35/health_care_ld_sicbl_2023-24.csv)
 
-The CCG and SICBL corresponds to different geographic arrangement of NHS services. The data were taken at different times thus there may be small differences between counts in CCG and SICL. We will only use CCG data for 2016 to 2017 as the SICBL is not available, maintaining data quality where possible.
+The [CCG and SICBL](https://www.nhsbsa.nhs.uk/sicbls-icbs-and-other-providers/organisation-and-prescriber-changes/sub-icb-locations) corresponds to different geographic arrangement of NHS services. The data were taken at different times thus there may be small differences between counts in CCG and SICL. We will only use CCG data for 2016 to 2017 as the SICBL is not available, maintaining data quality where possible.
 
 ### Data Munging
 All the downloaded table are concatenated, and meta data are harmonised with the outputs from OpenSAFELY.
