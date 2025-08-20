@@ -27,6 +27,9 @@ for each_key in list(dict_of_files.keys()):
 
     combined_table_emis = pd.concat([combined_table_emis,each_ratio], axis=0, ignore_index=True)
 
+#Need to remove the ALL
+combined_table_emis = combined_table_emis[~combined_table_emis.eq(config['all_code'][0]).any(axis=1)]
+
 #Saving the file
 combined_table_emis.to_csv(config['file_path_to_emis_measure'])
 
