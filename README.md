@@ -32,7 +32,7 @@ The [metadata of clinical codes]( https://www.opencodelists.org/) used in this s
 The repo contains the following supporting documentation found in [docs]( docs)
 * [ADHD Prevalence in EMIS and Cegedim]( docs/emis_calculation)
 * [Usage of ADHD Remission Codes from 2023 to 2024]( docs/remission_calculation)
-
+* [Code to Plot Graphs]( docs/graph_production)
 
 ## Compliance
 

@@ -11,7 +11,7 @@ from codelists import adhd_codelist, adhdrem_codelist
 from variables_library import last_matching_event, add_datestamp
 
 measures = create_measures()
-measures.configure_dummy_data(population_size=10)
+measures.configure_dummy_data(population_size=1000000)
 
 # Population variables
 has_registration = practice_registrations.spanning(
