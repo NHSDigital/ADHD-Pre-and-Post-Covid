@@ -35,15 +35,15 @@ combined_table_emis.to_csv(config['file_path_to_emis_measure'])
 
 #Adding the table into the readme 
 
-# Need to read in the README.md text file
-readme_file_path = config['readme_path']
-with open(readme_file_path,"r") as f:
-    readme_string = f.read()
+# # Need to read in the README.md text file
+# readme_file_path = config['readme_path']
+# with open(readme_file_path,"r") as f:
+#     readme_string = f.read()
 
-readme_selected_text = readme_string.split(config['anchor_in_readme'], 1)[0] + config['anchor_in_readme']
+# readme_selected_text = readme_string.split(config['anchor_in_readme'], 1)[0] + config['anchor_in_readme']
 
-table_to_markdown = combined_table_emis.to_markdown(index=False)
-output_string = readme_selected_text + "\n\n" + table_to_markdown
+# table_to_markdown = combined_table_emis.to_markdown(index=False)
+# output_string = readme_selected_text + "\n\n" + table_to_markdown
 
-with open(config['readme_path'], "w") as f:
-    f.write(output_string)
+# with open(config['readme_path'], "w") as f:
+#     f.write(output_string)
