@@ -10,3 +10,7 @@ venv/
 .Rhistory
 .Rproj.user/
 .devcontainer/ehrql-main/
+docs/emis_calculation/source_files/*
+docs/emis_calculation/emis_measure.csv
+docs/graph_production/*.jpeg 
+docs/remission_calculation/source_files/*
