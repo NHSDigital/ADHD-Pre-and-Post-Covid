@@ -1,3 +1,12 @@
+> [!IMPORTANT]  
+> This page has been redacted to avoid risk linking data. For details see [The NHS England OpenSAFELY COVID-19 service - privacy notice]( https://digital.nhs.uk/coronavirus/coronavirus-covid-19-response-information-governance-hub/the-nhs-england-opensafely-covid-19-service-privacy-notice)
+>
+>Unredacted version can be found in [NHS Digital GitHub Org]( https://github.com/NHSDigital/datascience-seminars/tree/main/All_materials/20250905_Calculating_ADHD_prevalence_rate_from_EMIS_and_Cegedim_records_using_open_source_data_from_NHS_England)
+
+> [!WARNING]  
+> I’m testing the Microsoft copilot AI to document functions – thus treat the docstring with caution
+
+
 # Calculating ADHD prevalence rate from EMIS and Cegedim records using open-source data from NHS England
 
 The following code generates the prevalence rate from [NHS England’s Health and Care of People with Learning Disabilities publication series]( https://digital.nhs.uk/data-and-information/publications/statistical/health-and-care-of-people-with-learning-disabilities) The data comes from EMIS and Cegedim.
