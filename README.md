@@ -33,6 +33,7 @@ The repo contains the following supporting documentation found in [docs]( docs)
 * [ADHD Prevalence in EMIS and Cegedim]( docs/emis_calculation)
 * [Usage of ADHD Remission Codes from 2023 to 2024]( docs/remission_calculation)
 * [Code to Plot Graphs]( docs/graph_production)
+* [SNOMED Code for ADHD Suspected]( docs/adhd_suspected)
 
 ## Compliance
 
