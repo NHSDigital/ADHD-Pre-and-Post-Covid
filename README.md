@@ -4,7 +4,7 @@
 > This repository is in active development and contents of this repository MUST NOT be considered an accurate or valid representation of the study or its purpose. This repository may reflect an incomplete or incorrect analysis with no further ongoing work. The content has ONLY been made public to support the OpenSAFELY [open science and transparency principles](https://www.opensafely.org/about/#contributing-to-best-practice-around-open-science) and to support the sharing of re-usable code for other subsequent users. No clinical, policy or safety conclusions must be drawn from the contents of this repository.
 
 > [!NOTE]  
-> The interim report is going through the [DATAPAST Function](https://docs.opensafely.org/datapast/). We hope to publish on the report and CSV on [NHS England Digital website](https://digital.nhs.uk/).
+> Initial results will appear on the [ADHD Management Information - November 2025](https://digital.nhs.uk/data-and-information/publications/statistical/mi-adhd/november-2025) on 4th Dec 2025.
 
 This repo is the [open codebase](https://www.gov.uk/service-manual/service-standard/point-12-make-new-source-code-open) for the approved [OpenSAFELY project #181: Examining changes in ADHD diagnosis and pathways in primary care pre and post COVID pandemic](https://www.opensafely.org/approved-projects/#project-181). 
 
@@ -37,6 +37,7 @@ The repo contains the following supporting documentation found in [docs]( docs)
 * [Usage of ADHD Remission Codes from 2023 to 2024]( docs/remission_calculation)
 * [Code to Plot Graphs]( docs/graph_production)
 * [SNOMED Code for ADHD Suspected]( docs/adhd_suspected)
+* [Output CSV Postprocessing]( docs/csv_postprocessing)
 
 ## Compliance
 
