@@ -10,7 +10,7 @@ This repo is the [open codebase](https://www.gov.uk/service-manual/service-stand
 
 Work is carried out by the [NHS England Data Science Team][ds-site]
 
-Detail description of the project can be found on our [protocol]( https://github.com/opensafely/ADHD-Pre-and-Post-Covid/tree/main/protocol%20)
+Detail description of the project can be found on our [protocol]( https://github.com/opensafely/ADHD-Pre-and-Post-Covid/tree/main/protocol)
 
 Each query is logged in [OpenSAFELY Jobs](https://jobs.opensafely.org/examining-changes-in-adhd-diagnosis-and-pathways-in-primary-care-pre-and-post-covid-pandemic/) 
 
